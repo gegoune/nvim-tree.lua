@@ -105,6 +105,7 @@ Values may be functions. Warning: this may result in unexpected behaviour.
       respect_buf_cwd = false,
       view = {
         adaptive_size = false,
+        centralize_selection = false,
         width = 30,
         height = 30,
         hide_root_folder = false,
@@ -124,6 +125,7 @@ Values may be functions. Warning: this may result in unexpected behaviour.
         add_trailing = false,
         group_empty = false,
         highlight_git = false,
+        full_name = false,
         highlight_opened_files = "none",
         root_folder_modifier = ":~",
         indent_markers = {
@@ -237,7 +239,7 @@ Values may be functions. Warning: this may result in unexpected behaviour.
         },
       },
       trash = {
-        cmd = "trash",
+        cmd = "gio trash",
         require_confirm = true,
       },
       live_filter = {
@@ -453,6 +455,11 @@ Window / buffer setup.
     Only works when |nvim-tree.view.side| is `left` or `right`.
       Type: `boolean`, Default: `false`
 
+    *nvim-tree.view.centralize_selection*
+    When entering nvim-tree, reposition the view so that the current node is
+    initially centralized, see |zz|.
+      Type: `boolean`, Default: `false`
+
     *nvim-tree.view.hide_root_folder*
     Hide the path of the current working directory on top of the tree.
       Type: `boolean`, Default: `false`
@@ -514,6 +521,10 @@ UI rendering setup
 
     *nvim-tree.renderer.group_empty*
     Compact folders that only contain a single folder into one node in the file tree.
+      Type: `boolean`, Default: `false`
+
+    *nvim-tree.renderer.full_name*
+    Display node whose name length is wider than the width of nvim-tree window in floating window.
       Type: `boolean`, Default: `false`
 
     *nvim-tree.renderer.highlight_git*
@@ -652,7 +663,8 @@ Configuration options for trashing.
 
     *nvim-tree.trash.cmd*
     The command used to trash items (must be installed on your system).
-      Type: `string`, Default: `"trash"`
+    The default is shipped with glib2 which is a common linux package.
+      Type: `string`, Default: `"gio trash"`
 
     *nvim-tree.trash.require_confirm*
     Show a prompt before trashing takes place.
